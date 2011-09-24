@@ -43,8 +43,8 @@ monitor_resource = 'watch'
 progress_resource = 'progress'
 
 # Soundcloud settings and strings
-soundcloud_consumer = "6325e96fcef18547e6552c23b4c0788c"  #dev: "a777862d216790ce1b8668899cd058fd"
-soundcloud_secret = "2bc846e4b317357494138ca34e3e92ec"    #dev: "42220de44734f274f6aad4bdb2797c84"
+soundcloud_consumer = "2b14776b26020b4f7aedfd73904ffa98"  #dev: "a777862d216790ce1b8668899cd058fd"
+soundcloud_secret = "a3504cd2813f882b46e589b76c416cee"    #dev: "42220de44734f274f6aad4bdb2797c84"
 soundcloud_redirect = 'http://beatbox.wubmachine.com/static/sc.html'
 soundcloud_app_id = 28788
 
