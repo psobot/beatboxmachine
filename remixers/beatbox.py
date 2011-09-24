@@ -68,19 +68,25 @@ class Beatbox(Remixer):
         last = 0
         for segment in kicks:
             if last + len(kick_sample.data) > segment.start:
-                print "Adding kick at %s" % segment.start
-                empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)] += kick_sample.data
+                truncated = kick_sample.data
+                if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
+                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)])]
+                empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)] += truncated
             last = segment.start
 
         last = 0
         for segment in snares:
             if last + len(snare_sample.data) > segment.start:
-                print "Adding snare at %s" % segment.start
+                truncated = kick_sample.data
+                if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
+                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)])]
                 empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(snare_sample.data)] += snare_sample.data     
             last = segment.start
         for segment in hats:
             if last + len(hat_sample.data) > segment.start:
-                print "Adding hat at %s" % segment.start
+                truncated = kick_sample.data
+                if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
+                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)])]
                 empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(hat_sample.data)] += hat_sample.data
             last  = segment.start
 
