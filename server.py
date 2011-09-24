@@ -473,7 +473,7 @@ if __name__ == "__main__":
         connectform = open('./static/js/connectform.js').read()
 
         log.info("\tStarting Tornado...")
-        application.listen(8888)
+        application.listen(config.port)
         log.info("...started!")
         tornadio.server.SocketServer(application, xheaders=config.nginx)
     except:

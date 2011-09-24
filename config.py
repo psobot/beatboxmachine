@@ -36,7 +36,8 @@ uid = lambda: str( uuid.uuid4() ).replace( '-', '' )
 uid_re = r'[a-f0-9]{32}'
 
 # Socket.IO variables, needed in JS and backend
-socket_io_port = 8001
+port = 8889 # put behind Nginx or something
+socket_io_port = 8002
 socket_extra_sep = '/'
 monitor_resource = 'watch'
 progress_resource = 'progress'
