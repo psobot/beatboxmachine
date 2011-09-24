@@ -274,27 +274,19 @@ class ShareHandler(RequestHandler):
             t = r.finished[uid]['tag']
 
             description = config.soundcloud_description
-            if 'artist' in t and 'album' in t:
-                description = ("Original song by %s, from the album \"%s\".<br />" % (t['artist'], t['album'])) + description
-            elif 'artist' in t:
-                description = ("Original song by %s.<br />" % t['artist']) + description
-
             form = MultiPartForm()
             form.add_field('oauth_token', token)
-            form.add_field('track[title]', t['new_title'].encode('utf-8'))
-            form.add_field('track[genre]', "Beat")
+            form.add_field('track[title]', "My Beat")
+            form.add_field('track[genre]', "Beatbox")
             form.add_field('track[license]', "no-rights-reserved")
             form.add_field('track[tag_list]', ' '.join(['"%s"' % tag for tag in config.soundcloud_tag_list]))
-            form.add_field('track[bpm]', '140')
+            if 'tempo' in t: form.add_field('track[bpm]', t['tempo'])
             form.add_field('track[description]', description.encode('utf-8'))
             form.add_field('track[track_type]', 'remix')
             form.add_field('track[downloadable]', 'true')
             form.add_field('track[sharing_note]', config.soundcloud_sharing_note)
             form.add_file('track[asset_data]', '%s.mp3' % uid, open(t['remixed']))
-            if 'art' in t:
-                form.add_file('track[artwork_data]', '%s.png' % uid, open(t['art']))
-            if 'key' in t:
-                form.add_field('track[key_signature]', t['key'])
+            if 'key' in t: form.add_field('track[key_signature]', t['key'])
 
             self.event = db.Event(uid, "share", ip = self.request.remote_ip)
             db.add(self.event)

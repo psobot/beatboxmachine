@@ -51,6 +51,7 @@ class Beatbox(Remixer):
         """
         self.log("Listening to beatbox track...", 30)
         self.original = audio.LocalAudioFile(self.infile)
+        self.tag['tempo'] = self.original.analysis.tempo
 
         self.log("Sorting kicks and snares...", 10)
         kicks = self.original.analysis.segments.that(are_kicks)
