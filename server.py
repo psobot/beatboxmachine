@@ -70,6 +70,7 @@ class ProgressSocket(tornadio.SocketConnection):
             if self.uid in self.listeners:
                 raise Exception("Progress socket already open!")
             if self.uid in r.finished:
+                self.close()
                 raise Exception("Remix complete, socket should be closed!")
             self.listeners[self.uid] = self
             if r.isAvailable():
