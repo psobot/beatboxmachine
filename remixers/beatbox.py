@@ -86,6 +86,7 @@ class Beatbox(Remixer):
 
         self.log("Mastering...", 20)
         audio.mix(empty, self.original, 0.5).encode(self.outfile)
+        self.updateTags(' (Beatbox Machine remix)')
         return self.outfile
 
 if __name__ == "__main__":
