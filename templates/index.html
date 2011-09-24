@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Beatbox Machine</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta name="description" content="The automatic beatbox remixer." />
+		
+		<meta name="og:title" content="The Beatbox Machine" />
+		<meta name="og:type" content="non_profit" />
+		<meta name="og:url" content="http://the.wubmachine.com/" />
+		<meta name="og:image" content="http://the.wubmachine.com/static/img/coverart.png" />
+		<meta name="og:description" content="The automatic beatbox remixer." />
+		<meta name="fb:admins" content="877490643" />
+
+		<link rel="shortcut icon" type="image/png" href="static/img/icon.png" />
+		<link rel="image_src" type="image/png" href="http://the.wubmachine.com/static/img/coverart.png" />
+		<link href='http://fonts.googleapis.com/css?family=Arimo:regular,italic,bold&amp;subset=latin' rel='stylesheet' type='text/css' />
+		<link href='/static/css/style.css' rel='stylesheet' type='text/css' />
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+    {% if isOpen %}
+    <script type="text/javascript">{{ javascript }}</script>
+    <script type="text/javascript" src="http://connect.soundcloud.com/2/latest.min.js"></script>
+    <script src="http://cdn.socket.io/stable/socket.io.js"></script>
+    <script>WEB_SOCKET_SWF_LOCATION = 'http://cdn.socket.io/stable/WebSocketMain.swf';</script>
+    <link rel="stylesheet" type="text/css" href="/static/css/player.css" />
+    <!--[if IE]><script type="text/javascript" src="/static/js/excanvas.js"></script><![endif]-->
+	  {% end %}
+		<script type="text/javascript">
+			function stopWaves(){$('.left, .right').removeClass("left").removeClass("right");}
+			$(document).ready(function(){$("h1").click(function(){stopWaves();});});
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-6427057-18']);
+      _gaq.push(['_setDomainName', '.wubmachine.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+		</script>
+	</head>
+	<body>
+		<div id="waves">
+			<div class="wave left slow" id="wave_1"></div>
+			<div class="wave right slow" id="wave_2"></div>
+			<div class="wave left fast" id="wave_3"></div>
+			<div class="wave right fast" id="wave_4"></div>
+			<div class="background"></div>
+		</div>
+		<div id="container">
+			<h1><a href="/"><img src="/static/img/logo.png" title="The Beatbox Machine" alt="The Beatbox Machine" /></a></h1>
+			{% if isOpen and isErroring %}
+			  <div class="error" style="margin:  10px auto; color:  #f00;">
+          The Beatbox Machine is currently experiencing some processing issues.<br />If you run into problems making a remix, please try again later!
+        </div>	
+			{% end %}
+      <div id="precontent"></div>
+			<div id="content">
+        <div id="spinner"></div>
+				<div id="file-uploader">
+          {% if isOpen %}
+          <div class='qq-upload-button'>Upload a song to create a remix.</div>
+          {% else %}
+          <div class='qq-upload-button red'>The Beatbox Machine is currently busy. Please try again soon!</div>
+          {% end %}
+				</div>				
+				<div class="progress">
+					<div class="number"></div>
+					<div class="text"></div>
+				</div>
+			</div>
+			<div id="post">		
+				<div class="download">
+          <a href="#">Download Remix</a>
+				</div>
+        <div class="soundcloud hidden">
+        {% if isOpen %}
+        <script type="text/javascript">{{ connectform }}</script>
+        {% end %}
+        </div>
+			</div>
+			<div class="link">
+				<span class="smaller deleted">
+          <strong>Download or share your remix if you want to keep it!</strong><br />
+          Remixes are deleted from the server within {{ cleanup_timeout }} of processing.<br />
+          Original songs are deleted immediately after remixing.
+        </span>
+      </div>
+			<div id="checkout">
+        {% if track %}
+				Check out what others have made with the Beatbox Machine:<br />
+				{% if track['artwork_url']%}
+					<img src="{{ track['artwork_url']}}" title="{{ track['title']}}" alt="{{ track['title']}}" style="margin-right: 2px;" height="80px" width="80px" />
+				{% end %}
+				<object height="81" width="{% if track['artwork_url']%}514px{% else %}100%{% end %}">
+					<param name="movie" value="http://player.soundcloud.com/player.swf?url={{ track['uri']}}"></param>
+					<param name="allowscriptaccess" value="always"></param>
+					<embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url={{ track['uri']}}" type="application/x-shockwave-flash" width="{% if track['artwork_url']%}514px{% else %}100%{% end %}"></embed>
+				</object>
+				<span><a href="{{ track['permalink_url']}}" target="_blank">{{ track['title']}}</a></span> 
+				<a class="more" href="http://soundcloud.com/tags/wubmachine?order=latest" target="_blank">Hear more...</a>
+        {% end %}
+      </div>
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="wubmachine">Tweet</a>
+      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      <iframe src="http://www.facebook.com/plugins/like.php?app_id=156969814372306&amp;href=http%3A%2F%2Fthe.wubmachine.com&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+      <br />
+      <br />
+			<div id="footer">
+        <a target="_blank" href="http://the.echonest.com" style="float: right; margin-left: 10px; margin-right: 120px;">
+          <img src="/static/img/ten.gif" title="the wonderful, wonderful echo nest" alt="the echo nest" />
+        </a>
+        <a target="_blank" href="http://blog.petersobot.com/the-wub-machine-revisited">about</a>
+        |
+        <a href="mailto:beatboxmachine@petersobot.com">feedback</a>
+        |
+        <span id="totalsongs">{{ count }}</span> songs remixed
+        <br />
+        crafted by <a href="http://www.petersobot.com" target="_blank">Peter Sobot</a>
+			</div>
+		</div>
+	</body>
+</html>
+
