@@ -7,6 +7,7 @@ Dependencies:
 from remixer import *
 from echonest.selection import *
 from echonest.sorting import *
+from echonest.action import make_stereo
 import math
 import numpy
 
@@ -92,7 +93,12 @@ class Beatbox(Remixer):
             last  = segment.start
 
         self.log("Mastering...", 20)
-        audio.mix(empty, self.original, 0.5).encode(self.outfile)
+
+        if self.original.numChannels == 1:
+            data = make_stereo(self.original)
+        else:
+            data = self.original
+        audio.mix(empty, data, 0.5).encode(self.outfile)
         self.updateTags(' (Beatbox Machine remix)')
         return self.outfile
 
