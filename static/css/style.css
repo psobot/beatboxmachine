@@ -109,6 +109,14 @@ body > .title .number{
     text-align: left;
     padding: 5px 10px;
 }
+#clicktorecord{
+  height: 156px;
+  width: 175px;
+  display: block;
+  position: absolute;
+  background: url(../img/clicktorecord.png);
+}
+
 .hack {
     height: 94px;
     padding: 5px 10px;
