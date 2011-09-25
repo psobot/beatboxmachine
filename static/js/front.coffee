@@ -55,8 +55,12 @@ $(document).ready ->
       $(".qq-upload-button").append a
   )
 ///
+window.uploading = ->
+  $("#theflash").slideUp()
+  $("#uploading").slideDown()
 window.serverResponse = (r) ->
-  console.log r
+  window.log r
+  $("#uploading").slideUp()
   $("#file-uploader").remove()
   $(".progress").show()
   $(".progress .text").show()

@@ -131,6 +131,9 @@ body > .title .number{
     color: #999;
     margin: 10px;
 }
+#uploading {
+    display: none;
+}
 #footer {
     text-align: right;
     opacity: 0.4;

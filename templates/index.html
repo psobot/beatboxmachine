@@ -61,12 +61,15 @@
       <div id="precontent"></div>
 			<div id="content">
         <div id="spinner"></div>
-          <object width="215" height="139">
-            <param name="movie" value="/static/swf/recorder.swf" />
-            <PARAM NAME="wmode" VALUE="transparent">
-            <object type="application/x-shockwave-flash" data="/static/swf/recorder.swf" width="215" height="139" wmode="transparent">
-            </object>
-          </object>	
+        <object width="215" height="139" id="theflash">
+          <param name="movie" value="/static/swf/recorder.swf" />
+          <PARAM NAME="wmode" VALUE="transparent">
+          <object type="application/x-shockwave-flash" data="/static/swf/recorder.swf" width="215" height="139" wmode="transparent">
+          </object>
+        </object>	
+        <div id="uploading">
+          Uploading your beatbox...
+        </div>
 				<div class="progress">
 					<div class="number"></div>
 					<div class="text"></div>
