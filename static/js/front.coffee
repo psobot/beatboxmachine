@@ -56,7 +56,7 @@ $(document).ready ->
   )
 ///
 window.uploading = ->
-  $("#theflash").slideUp()
+  $("#clicktorecord").slideUp()
   $("#uploading").slideDown()
 window.serverResponse = (r) ->
   window.log r

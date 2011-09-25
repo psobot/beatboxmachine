@@ -110,11 +110,13 @@ body > .title .number{
     padding: 5px 10px;
 }
 #clicktorecord{
-  height: 156px;
-  width: 175px;
-  display: block;
-  position: absolute;
-  background: url(../img/clicktorecord.png);
+    height: 156px;
+    width: 175px;
+    display: block;
+    position: relative;
+    background: url(../img/clicktorecord.png) no-repeat left;
+    margin: 0 auto -156px;
+    padding-right: 300px;
 }
 
 .hack {
