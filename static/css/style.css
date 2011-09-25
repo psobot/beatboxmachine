@@ -144,6 +144,8 @@ body > .title .number{
 #theflash {
     display: block;
     margin: 30px auto 0;
+    position: relative;
+    z-index: 9999;
 }
 #uploading {
     display: none;
