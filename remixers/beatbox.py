@@ -72,7 +72,7 @@ class Beatbox(Remixer):
             if last + len(kick_sample.data) > segment.start:
                 truncated = kick_sample.data
                 if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
-                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)])]
+                    truncated = truncated[:len(self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(kick_sample.data)])]
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] *= 0.4
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] += truncated
             last = segment.start
@@ -82,7 +82,7 @@ class Beatbox(Remixer):
             if last + len(hat_sample.data) > segment.start:
                 truncated = hat_sample.data
                 if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
-                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(hat_sample.data)])]
+                    truncated = truncated[:len(self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(hat_sample.data)])]
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] *= 0.4
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] += truncated
             last  = segment.start
@@ -91,7 +91,7 @@ class Beatbox(Remixer):
             if last + len(snare_sample.data) > segment.start:
                 truncated = snare_sample.data
                 if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
-                    truncated = truncated[:len(empty.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(snare_sample.data)])]
+                    truncated = truncated[:len(self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(snare_sample.data)])]
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] *= 0.4
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] += truncated     
             last = segment.start
