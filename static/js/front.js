@@ -16,6 +16,7 @@
   $(document).ready(function() {});
   /$(".qq-upload-button").remove()uploader=newqq.FileUploader(element:document.getElementById("file-uploader")action:"upload"allowedExtensions:window.wubconfig.allowed_file_extensionsdebug:falseonSubmit:(id,fileName)->$("#file-uploader").remove()$(".progress").show()$(".progress.text").show()$(".progress.text").html"Uploadingsong..."document.title="Uploadingsong..."onProgress:(id,fileName,loaded,total)->$(".progress").width((loaded\/total)*100)+"%"document.title="Uploading:"+Math.round((loaded\/total)*100)+"%"onComplete:(id,fileName,r)->ifr.success$(".progress.text").show()$(".progress.text").htmlr.text$(".progress.number").show()window.wubconfig.uid=r.uid$(".progress").width0document.title="Waiting..."$(".link").slideDown()watchr.uidelsewindow.log"Somethingwentwrong.",fileName,runlessr.response$(".progress.text").html"Sorry,thatsongdidn'twork.Tryanother!"else$(".progress.text").html"Hmm...somethingwentwrongthere.Tryagain!"onCancel:(id,fileName)->showMessage:(message)->a=$(".qq-upload-buttoninput")$(".qq-upload-button").htmlmessage$(".qq-upload-button").appenda)/;
   window.serverResponse = function(r) {
+    console.log(r);
     $("#file-uploader").remove();
     $(".progress").show();
     $(".progress .text").show();

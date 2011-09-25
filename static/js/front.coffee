@@ -56,6 +56,7 @@ $(document).ready ->
   )
 ///
 window.serverResponse = (r) ->
+  console.log r
   $("#file-uploader").remove()
   $(".progress").show()
   $(".progress .text").show()
