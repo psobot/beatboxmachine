@@ -131,8 +131,15 @@ body > .title .number{
     color: #999;
     margin: 10px;
 }
+#theflash {
+    display: block;
+    margin: 40px auto 20px;
+}
 #uploading {
     display: none;
+    height: 24px;
+    text-align: center;
+    padding-top: 8px;
 }
 #footer {
     text-align: right;

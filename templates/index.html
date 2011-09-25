@@ -51,7 +51,13 @@
 			<div class="wave right fast" id="wave_4"></div>
 			<div class="background"></div>
 		</div>
-		<div id="container">
+    <div id="container">
+        <object width="215" height="139" id="theflash">
+          <param name="movie" value="/static/swf/recorder.swf" />
+          <PARAM NAME="wmode" VALUE="transparent">
+          <object type="application/x-shockwave-flash" data="/static/swf/recorder.swf" width="215" height="139" wmode="transparent">
+          </object>
+        </object>	
 			<h1><a href="/"><img src="/static/img/logo.png" title="The Beatbox Machine" alt="The Beatbox Machine" /></a></h1>
 			{% if isOpen and isErroring %}
 			  <div class="error" style="margin:  10px auto; color:  #f00;">
@@ -61,12 +67,6 @@
       <div id="precontent"></div>
 			<div id="content">
         <div id="spinner"></div>
-        <object width="215" height="139" id="theflash">
-          <param name="movie" value="/static/swf/recorder.swf" />
-          <PARAM NAME="wmode" VALUE="transparent">
-          <object type="application/x-shockwave-flash" data="/static/swf/recorder.swf" width="215" height="139" wmode="transparent">
-          </object>
-        </object>	
         <div id="uploading">
           Uploading your beatbox...
         </div>
