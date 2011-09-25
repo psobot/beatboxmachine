@@ -56,7 +56,7 @@ $(document).ready ->
   )
 ///
 window.uploading = ->
-  $("#clicktorecord").slideUp()
+  $("#clicktorecord").fadeOut()
   $("#uploading").slideDown()
 window.serverResponse = (r) ->
   window.log r
