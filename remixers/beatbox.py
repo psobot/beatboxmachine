@@ -63,7 +63,10 @@ class Beatbox(Remixer):
         hat_sample = audio.AudioData(self.sample_path + self.template['hats'], sampleRate=44100, numChannels=2, verbose=False)
         kick_sample = audio.AudioData(self.sample_path + self.template['kick'], sampleRate=44100, numChannels=2, verbose=False)
         snare_sample = audio.AudioData(self.sample_path + self.template['snare'], sampleRate=44100, numChannels=2, verbose=False)
-  
+
+        if self.original.numChannels == 1:
+            self.original = make_stereo(self.original)
+
         last = 0
         for segment in kicks:
             if last + len(kick_sample.data) > segment.start:
@@ -94,11 +97,6 @@ class Beatbox(Remixer):
             last = segment.start
 
         self.log("Mastering...", 20)
-
-        if self.original.numChannels == 1:
-            data = make_stereo(self.original)
-        else:
-            data = self.original
         #audio.mix(empty, data, 0.5).encode(self.outfile)
         self.original.encode(self.outfile)
         self.updateTags(' (Beatbox Machine remix)')
