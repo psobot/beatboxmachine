@@ -55,7 +55,7 @@ $(document).ready ->
       $(".qq-upload-button").append a
   )
 ///
-serverResponse = (r) ->
+window.serverResponse = (r) ->
   $("#file-uploader").remove()
   $(".progress").show()
   $(".progress .text").show()
