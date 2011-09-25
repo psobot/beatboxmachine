@@ -133,7 +133,7 @@ body > .title .number{
 }
 #theflash {
     display: block;
-    margin: 40px auto;
+    margin: 40px auto 0;
 }
 #uploading {
     display: none;
