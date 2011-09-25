@@ -13,7 +13,7 @@ firsttitle = document.title
 lastwidth = 0
 
 $(document).ready ->
-  $(".qq-upload-button").remove()
+///  $(".qq-upload-button").remove()
   uploader = new qq.FileUploader(
     element: document.getElementById("file-uploader")
     action: "upload"
@@ -54,6 +54,29 @@ $(document).ready ->
       $(".qq-upload-button").html message
       $(".qq-upload-button").append a
   )
+///
+serverResponse = (r) ->
+  $("#file-uploader").remove()
+  $(".progress").show()
+  $(".progress .text").show()
+  $(".progress .text").html "Uploading song..."
+  document.title = "Uploading song..."
+  if r.success
+    $(".progress .text").show()
+    $(".progress .text").html r.text
+    $(".progress .number").show()
+    window.wubconfig.uid = r.uid
+    $(".progress").width 0
+    document.title = "Waiting..."
+    $(".link").slideDown()
+    watch r.uid
+  else
+    window.log "Something went wrong.", fileName, r
+    unless r.response
+      $(".progress .text").html "Sorry, that song didn't work. Try another!"
+    else
+      $(".progress .text").html "Hmm... something went wrong there. Try again!"
+  return 1
 
 watch = (uid) ->
   s = new io.Socket window.location.hostname, {

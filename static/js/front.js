@@ -1,5 +1,5 @@
 (function() {
-  var addPlayer, counter, firsttitle, lastwidth, loaded, manualSeek, watch;
+  var addPlayer, counter, firsttitle, lastwidth, loaded, manualSeek, serverResponse, watch;
   manualSeek = false;
   loaded = false;
   addPlayer = function(filename) {};
@@ -13,53 +13,33 @@
   counter = 0;
   firsttitle = document.title;
   lastwidth = 0;
-  $(document).ready(function() {
-    var uploader;
-    $(".qq-upload-button").remove();
-    return uploader = new qq.FileUploader({
-      element: document.getElementById("file-uploader"),
-      action: "upload",
-      allowedExtensions: window.wubconfig.allowed_file_extensions,
-      debug: false,
-      onSubmit: function(id, fileName) {
-        $("#file-uploader").remove();
-        $(".progress").show();
-        $(".progress .text").show();
-        $(".progress .text").html("Uploading song...");
-        return document.title = "Uploading song...";
-      },
-      onProgress: function(id, fileName, loaded, total) {
-        $(".progress").width(((loaded / total) * 100) + "%");
-        return document.title = "Uploading: " + Math.round((loaded / total) * 100) + "%";
-      },
-      onComplete: function(id, fileName, r) {
-        if (r.success) {
-          $(".progress .text").show();
-          $(".progress .text").html(r.text);
-          $(".progress .number").show();
-          window.wubconfig.uid = r.uid;
-          $(".progress").width(0);
-          document.title = "Waiting...";
-          $(".link").slideDown();
-          return watch(r.uid);
-        } else {
-          window.log("Something went wrong.", fileName, r);
-          if (!r.response) {
-            return $(".progress .text").html("Sorry, that song didn't work. Try another!");
-          } else {
-            return $(".progress .text").html("Hmm... something went wrong there. Try again!");
-          }
-        }
-      },
-      onCancel: function(id, fileName) {},
-      showMessage: function(message) {
-        var a;
-        a = $(".qq-upload-button input");
-        $(".qq-upload-button").html(message);
-        return $(".qq-upload-button").append(a);
+  $(document).ready(function() {});
+  /$(".qq-upload-button").remove()uploader=newqq.FileUploader(element:document.getElementById("file-uploader")action:"upload"allowedExtensions:window.wubconfig.allowed_file_extensionsdebug:falseonSubmit:(id,fileName)->$("#file-uploader").remove()$(".progress").show()$(".progress.text").show()$(".progress.text").html"Uploadingsong..."document.title="Uploadingsong..."onProgress:(id,fileName,loaded,total)->$(".progress").width((loaded\/total)*100)+"%"document.title="Uploading:"+Math.round((loaded\/total)*100)+"%"onComplete:(id,fileName,r)->ifr.success$(".progress.text").show()$(".progress.text").htmlr.text$(".progress.number").show()window.wubconfig.uid=r.uid$(".progress").width0document.title="Waiting..."$(".link").slideDown()watchr.uidelsewindow.log"Somethingwentwrong.",fileName,runlessr.response$(".progress.text").html"Sorry,thatsongdidn'twork.Tryanother!"else$(".progress.text").html"Hmm...somethingwentwrongthere.Tryagain!"onCancel:(id,fileName)->showMessage:(message)->a=$(".qq-upload-buttoninput")$(".qq-upload-button").htmlmessage$(".qq-upload-button").appenda)/;
+  serverResponse = function(r) {
+    $("#file-uploader").remove();
+    $(".progress").show();
+    $(".progress .text").show();
+    $(".progress .text").html("Uploading song...");
+    document.title = "Uploading song...";
+    if (r.success) {
+      $(".progress .text").show();
+      $(".progress .text").html(r.text);
+      $(".progress .number").show();
+      window.wubconfig.uid = r.uid;
+      $(".progress").width(0);
+      document.title = "Waiting...";
+      $(".link").slideDown();
+      watch(r.uid);
+    } else {
+      window.log("Something went wrong.", fileName, r);
+      if (!r.response) {
+        $(".progress .text").html("Sorry, that song didn't work. Try another!");
+      } else {
+        $(".progress .text").html("Hmm... something went wrong there. Try again!");
       }
-    });
-  });
+    }
+    return 1;
+  };
   watch = function(uid) {
     var s;
     s = new io.Socket(window.location.hostname, {

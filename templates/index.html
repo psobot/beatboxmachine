@@ -18,6 +18,7 @@
 		<link href='/static/css/style.css' rel='stylesheet' type='text/css' />
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/swfobject.js"></script>
     {% if isOpen %}
     <script type="text/javascript">{{ javascript }}</script>
     <script type="text/javascript" src="http://connect.soundcloud.com/2/latest.min.js"></script>
@@ -60,13 +61,11 @@
       <div id="precontent"></div>
 			<div id="content">
         <div id="spinner"></div>
-				<div id="file-uploader">
-          {% if isOpen %}
-          <div class='qq-upload-button'>Upload a song to create a remix.</div>
-          {% else %}
-          <div class='qq-upload-button red'>The Beatbox Machine is currently busy. Please try again soon!</div>
-          {% end %}
-				</div>				
+          <object width="780" height="420">
+            <param name="movie" value="/static/swf/recorder.swf" />
+            <object type="application/x-shockwave-flash" data="/static/swf/recorder.swf" width="780" height="420">
+            </object>
+          </object>	
 				<div class="progress">
 					<div class="number"></div>
 					<div class="text"></div>
