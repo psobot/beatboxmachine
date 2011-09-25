@@ -81,7 +81,7 @@ class Beatbox(Remixer):
         for segment in hats:
             if last + len(hat_sample.data) > segment.start:
                 truncated = hat_sample.data
-                if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
+                if self.original.sampleRate*segment.start + len(hat_sample.data) > len(self.original.data):
                     truncated = truncated[:len(self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(hat_sample.data)])]
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] *= 0.4
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] += truncated
@@ -90,7 +90,7 @@ class Beatbox(Remixer):
         for segment in snares:
             if last + len(snare_sample.data) > segment.start:
                 truncated = snare_sample.data
-                if self.original.sampleRate*segment.start + len(kick_sample.data) > len(self.original.data):
+                if self.original.sampleRate*segment.start + len(snare_sample.data) > len(self.original.data):
                     truncated = truncated[:len(self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(snare_sample.data)])]
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] *= 0.4
                 self.original.data[self.original.sampleRate*segment.start:self.original.sampleRate*segment.start + len(truncated)] += truncated     
