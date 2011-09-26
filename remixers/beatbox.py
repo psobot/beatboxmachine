@@ -12,10 +12,12 @@ import math
 import numpy
 
 def avg(xArr):
-    return round(min(xArr))
+    return float(sum(xArr)/len(xArr))
 
 def stddev(xArr):
-    return round(max(xArr))
+	iAve = avg(xArr)
+    return math.sqrt(sum([(iAve-x)**2 for i,x in xArr])/len(xArr))
+    
 '''
 def are_kicks(x):
     bright = x.timbre[1] < 20
@@ -38,7 +40,7 @@ def are_hats(x):
     what = x.timbre[4] < 40
     return loud and bright and flat and attack and what
 '''
-
+'''
 def are_kicks(x):
     bright = x.timbre[1] < 30
     flat =  x.timbre[2] < -30
@@ -55,7 +57,32 @@ def are_hats(x):
     bright = x.timbre[1] > 30
     what = x.timbre[4] > 15
     return bright and what
+'''
 
+def classifyBeat(rSeg):
+    errKick = 0
+    errSnare = 0
+    errHats = 0
+    
+    kickRange= 333;
+    snareRange = 223;
+    hatsRange = 13123;
+    for i,v in rSeg.timbres:
+	    if v > kickRange[1] errKick += v-kickRange[1]
+	    elif v < kickRange[0] errKick += kickRange[0]-v
+	    if v > snareRange[1] errKick += v-snareRange[1]
+	    elif v < snareRange[0] errKick += snareRange[0]-v
+	    if v > hatsRange[1] errKick += v-hatsRange[1]
+	    elif v < hatsRange[0] errKick += hatsRange[0]-v
+	errs = [errKick,errSnare,errHats]
+	for i,v in errs:
+		if v == min(errs):
+			if i == 0 return "kick"
+			elif i == 1 return "snare"
+			else return "hats"
+    
+def calcRange(arr):
+    return [avg(arr)-stddev(arr),avg(arr)+stddev(arr)]
 
 class Beatbox(Remixer):
     template = {
@@ -72,7 +99,7 @@ class Beatbox(Remixer):
         self.log("Listening to beatbox track...", 30)
         self.original = audio.LocalAudioFile(self.infile)
         self.tag['tempo'] = self.original.analysis.tempo
-        '''
+        
         bad = []
 
         for i, segment in enumerate(self.original.analysis.segments):
@@ -100,7 +127,7 @@ class Beatbox(Remixer):
         print "MAXS"
         print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % ('loud','bright','flat','attack','t5','t6','t7','t8','t9','t10','t11','t12')
         print "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (stddev(loudnesses),stddev(brightnesses),stddev(flatnesses),stddev(attacks),stddev(timbre5),stddev(timbre6),stddev(timbre7),stddev(timbre8),stddev(timbre9),stddev(timbre10),stddev(timbre11),stddev(timbre12))
-        '''
+        
         self.log("Sorting kicks and snares...", 10)
         kicks = self.original.analysis.segments.that(are_kicks)
         snares = self.original.analysis.segments.that(are_snares)
